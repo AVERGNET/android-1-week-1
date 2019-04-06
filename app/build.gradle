@@ -19,7 +19,7 @@ android {
         }
     }
     lintOptions {
-        // warns when code does not play nice with kotlin
+        // warns when java code does not play nice with kotlin
         enable 'Interoperability'
     }
     compileOptions {

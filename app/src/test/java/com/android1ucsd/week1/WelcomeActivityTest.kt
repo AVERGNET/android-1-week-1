@@ -1,6 +1,7 @@
 package com.android1ucsd.week1
 
 import android.content.ComponentName
+import android.widget.Button
 import android.widget.EditText
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
@@ -33,11 +34,12 @@ class WelcomeActivityTest {
     fun testAssertHelloText() {
         onView(withHint(R.string.welcome_page_hint))
             .withFailureHandler { _, _ -> fail("missing a view with the hint set to R.string.hint") }
-            .check(matches(isAssignableFrom(EditText::class.java)))
+            .check(matches(isAssignableFrom(EditText::class.java))) // makes sure the view is an EditText
             .perform(ViewActions.typeText(testString), ViewActions.closeSoftKeyboard())
 
         onView(withText(R.string.welcome_page_button_text))
-            .withFailureHandler { _, _ -> fail("missing a button with text set to R.string.submit_button_text")}
+            .withFailureHandler { _, _ -> fail("missing a button with text set to R.string.submit_button_text") }
+            .check(matches(isAssignableFrom(Button::class.java))) // make sure the view is a Button
             .perform(ViewActions.click())
 
         // here we check that the string that was typed in the edit text was passed to the next activity

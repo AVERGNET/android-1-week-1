@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import com.android1ucsd.week1.R
-import com.android1ucsd.week1.screen.list.ListActivity
 
 class WelcomeActivity : AppCompatActivity() {
 
@@ -17,10 +16,12 @@ class WelcomeActivity : AppCompatActivity() {
 
         val button = findViewById<Button>(R.id.aw_button)
         val editText = findViewById<EditText>(R.id.aw_edit_text)
-        editText.hint = "search"
+
+        //TODO uncomment the line below to make the test pass
+//        editText.hint = "search"
 
         button.setOnClickListener {
-            startActivity(ListActivity.createIntent(this, editText.text.toString()))
+            //TODO add code to pass the value of the edit text to the ListActivity through an intent
         }
     }
 

@@ -14,12 +14,10 @@ import androidx.test.espresso.intent.matcher.IntentMatchers
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.rule.ActivityTestRule
 import com.android1ucsd.week1.screen.details.DetailsActivity
 import com.android1ucsd.week1.screen.list.ListActivity
 import com.android1ucsd.week1.screen.list.ListItemObject
 import com.android1ucsd.week1.screen.list.ListScreenDataSource
-import org.hamcrest.Matchers
 import org.hamcrest.Matchers.not
 import org.junit.Before
 import org.junit.Rule
@@ -53,6 +51,8 @@ class ListActivityTest {
         // with test data instead of the real data.
         App.init(Dependencies(testDataSource))
 
+        // the activityRule automatically creates an intent to the correct activity so we don't need to pass the class
+        // and context to the intent constructor, we can just add our text data.
         val intent = Intent()
         intent.putExtra(ListActivity.TITLE_EXTRA, testTitle)
 
@@ -76,10 +76,10 @@ class ListActivityTest {
         recyclerView.check(matches(not(hasListItemWithExpectedTitle)))
         recyclerView.check(matches(not(hasListItemWithExpectedSubtitle)))
 
-        // Here we scroll the recycler view
+        // Here we scroll the recycler view to the 21st item
         recyclerView.perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(offscreenTestPosition))
 
-        // after scrolling the item should be visible
+        // after scrolling the item should be visible, we check that it has the title and subtitle we expect
         recyclerView.check(matches(hasListItemWithExpectedSubtitle))
         recyclerView.check(matches(hasListItemWithExpectedSubtitle))
 
@@ -88,12 +88,17 @@ class ListActivityTest {
 
     @Test
     fun testStartDetailsActivity() {
+        // performs a click on the item in the recycler view
         onView(isAssignableFrom(RecyclerView::class.java)).perform(RecyclerViewActions
             .actionOnItemAtPosition<RecyclerView.ViewHolder>(offscreenTestPosition, click()))
 
+        // checks to see that the item is correctly passed to the next activity
         Intents.intended(IntentMatchers.hasExtra(DetailsActivity.ITEM_EXTRA, expectedItemAtOffscreenPosition))
     }
 
+    /**
+     * A data source that is filled with test data, it generates a random list of items.
+     */
     private class TestListScreenDataSource(listSize: Int) : ListScreenDataSource {
 
         private val list: List<ListItemObject> = listOf(
