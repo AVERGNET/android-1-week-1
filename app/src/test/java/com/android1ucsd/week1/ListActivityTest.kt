@@ -28,6 +28,8 @@ import kotlin.random.Random
 
 /**
  * Created by rjaylward on 4/5/19
+ *
+ * TODO click the circle with the arrow in it next to class ListActivityTest in order to run all the tests in this class.
  */
 
 @Config(qualifiers = "h640dp")
@@ -62,10 +64,13 @@ class ListActivityTest {
     @Test
     fun testCheckIntentAndRecyclerView() {
         // Makes sure what was passed to the activity is shown as the title
-        onView(withText(testTitle)).check(matches(withParent(isAssignableFrom(Toolbar::class.java))))
+        onView(withText(testTitle))
+            .withFailureMessage("the TITLE_EXTRA passed int the Intent to the Activity must be set as the toolbar title")
+            .check(matches(withParent(isAssignableFrom(Toolbar::class.java))))
 
         // Makes sure there is a RecyclerView
         val recyclerView = onView(isAssignableFrom(RecyclerView::class.java))
+            .withFailureMessage("missing a recycler view")
         recyclerView.check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
         val hasListItemWithExpectedTitle = hasDescendant(withText(expectedItemAtOffscreenPosition.title))
@@ -74,16 +79,20 @@ class ListActivityTest {
         // We expect the item at the offscreenTestPosition to be initially offscreen
         // if this is failing, try making your view-holder layout taller
         recyclerView.check(matches(not(hasListItemWithExpectedTitle)))
+            .withFailureMessage("Expected item title at index $offscreenTestPosition to not be visible without " +
+                    "scrolling. Try making your itemview taller")
         recyclerView.check(matches(not(hasListItemWithExpectedSubtitle)))
+            .withFailureMessage("Expected item subtitle at index $offscreenTestPosition to not be visible without " +
+                    "scrolling. Try making your itemview taller")
 
         // Here we scroll the recycler view to the 21st item
         recyclerView.perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(offscreenTestPosition))
 
         // after scrolling the item should be visible, we check that it has the title and subtitle we expect
+        recyclerView.check(matches(hasListItemWithExpectedTitle))
+            .withFailureMessage("Item at index $offscreenTestPosition does not have the right title")
         recyclerView.check(matches(hasListItemWithExpectedSubtitle))
-        recyclerView.check(matches(hasListItemWithExpectedSubtitle))
-
-        recyclerView.perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(offscreenTestPosition, click()))
+            .withFailureMessage("Item at index $offscreenTestPosition does not have the right subtitle")
     }
 
     @Test

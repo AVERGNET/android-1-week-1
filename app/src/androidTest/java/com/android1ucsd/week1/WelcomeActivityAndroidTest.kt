@@ -25,6 +25,8 @@ import com.android1ucsd.week1.screen.welcome.WelcomeActivity
  * Instrumented test, which will execute on an Android device.
  *
  * See [testing documentation](http://d.android.com/tools/testing).
+ *
+ * This test is exactly the same as the WelcomeActivityTest.
  */
 @RunWith(androidx.test.ext.junit.runners.AndroidJUnit4::class)
 class WelcomeActivityAndroidTest {

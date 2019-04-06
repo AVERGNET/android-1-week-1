@@ -14,14 +14,13 @@ class WelcomeActivity : AppCompatActivity() {
 
         title = "Welcome"
 
-        val button = findViewById<Button>(R.id.aw_button)
-        val editText = findViewById<EditText>(R.id.aw_edit_text)
-
-        //TODO uncomment the line below to make the test pass
-//        editText.hint = "search"
+        val button: Button = findViewById(R.id.aw_button)
+        val editText: EditText = findViewById(R.id.aw_edit_text)
 
         button.setOnClickListener {
-            //TODO add code to pass the value of the edit text to the ListActivity through an intent
+            //TODO | add code to pass the text of the edit text to the ListActivity through an intent. If you don't know
+            //TODO | how to write the code to create an intent in Kotlin, do it in a Java file and copy paste it back
+            //TODO | into this file. Android Studio will automatically convert the Java code to Kotlin.
         }
     }
 

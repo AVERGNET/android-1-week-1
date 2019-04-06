@@ -26,6 +26,8 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        // we inject the real data source here in the app. In tests we can use fake data sources
         init(Dependencies(AppListScreenDataSource()))
     }
 

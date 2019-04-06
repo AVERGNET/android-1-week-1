@@ -15,6 +15,8 @@ import java.util.List;
  */
 public class AppListScreenDataSource implements ListScreenDataSource {
 
+    // feel free to make the list item title, subtitle and colors anything you want.
+
     private List<ListItemObject> items = Arrays.asList(
             new ListItemObject("RED", "Item 1", Color.RED),
             new ListItemObject("BLUE", "Item 2", Color.BLUE),
