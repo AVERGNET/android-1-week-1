@@ -13,6 +13,6 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        //TODO add a layout that passes the tests in the WelcomeActivityTest file
     }
 }
